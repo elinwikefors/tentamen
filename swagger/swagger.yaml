@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: BookLibrary
   description: |
-    books available for loan
+    Swagger to book api
   license:
     name: MIT
 servers:
@@ -15,6 +15,8 @@ paths:
       operationId: listBooks
       tags:
       - books
+      requestBody:
+        description: the book to create
       responses:
         '200':
           description: Array of books
@@ -28,6 +30,115 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a book
+      operationId: postBook
+      tags:
+      - books
+      requestBody:
+        description: the book to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseBook'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    /books/{id}:
+      get:
+        summary: info about a specific book
+        operationId: getBookId
+        tags:
+          - Books
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: The id of the Book to retrieve
+            schema: 
+              type: string
+        response:
+          '200':
+            description: Expected response to a valid request
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ResponseBook"
+          default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: update a book
+      operationId: putBook
+      tags:
+        - books
+      requestBody:
+        description: update book
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the book to retrieve
+          schema:
+            type: string
+          responses:
+          '200':
+            description: Expected response to a valid request
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ResponseBook"
+          default:
+            description: unexpected error
+            content:
+              application/json:
+                schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete a specific book
+      operationId: deleteBook
+      tags: 
+        - books
+      parameters: 
+      - name: id
+        in: path
+        required: true
+        description: Deletes the book
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Expected respsone to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseBook"
+        '204':
+          description: there is nothing to delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 components:
   schemas:
     Book: # A single book
@@ -38,12 +149,27 @@ components:
       allOf:
       - $ref: "#/components/schemas/Book"
       - properties:
-          __v:
-            type: integer
-            format: uint32
-          _id:
+          isbn:
             type: string
-            format: uuid
+            format: string
+          title:
+            type: string
+          author:
+            type: string
+          price: 
+            type: number
+          sellerEmail:
+            type: string
+          used:
+            type: boolean
+          location:
+            
+              city:
+                type: string
+              street:
+                type: string
+
+          
     ResponseBooks: #list of books
       type: array
       items:

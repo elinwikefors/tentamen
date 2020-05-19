@@ -21,7 +21,7 @@ postBook = (req, res, next) => {
     title: req.body.title,
     author: req.body.author,
     price: req.body.price,
-    selleremail: req.body.selleremail,
+    sellerEmail: req.body.sellerEmail,
     used: req.body.used,
     location: {
       city: req.body.location.city,
@@ -60,13 +60,13 @@ deleteBook = async (req, res, next) => {
 putBook = (req, res, next) => {
 	req.models.Book.updateOne({_id: req.params.id}, 
 		{
-			ISBN: req.body.isbn,
-      Title: req.body.Title,
-      Author: req.body.Author,
-      Price: req.body.Price,
-      SellerEmail: req.body.sellerEmail,
-      Used: req.body.Used,
-			location: {
+      isbn: req.body.isbn,
+      title: req.body.title,
+      author: req.body.author,
+      price: req.body.price,
+      selleremail: req.body.selleremail,
+      used: req.body.used,
+      location: {
         city: req.body.location.city,
         street: req.body.location.street,
 			}
