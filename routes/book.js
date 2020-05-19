@@ -45,7 +45,7 @@ getBookId = (req, res, next) => {
 
 deleteBook = (req, res, next) => {
   try {
-    const deleted = await req.models.Book.findByIdAndDelete(req.params.id);
+    const deleted = req.models.Book.findByIdAndDelete(req.params.id);
     if (deleted) {
       console.log(deleted);
       return res.send(deleted);
