@@ -21,8 +21,6 @@ paths:
           name: title
           schema:
             type: string
-      requestBody:
-        description: the book to create
       responses:
         '200':
           description: Array of books
