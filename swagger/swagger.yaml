@@ -14,7 +14,13 @@ paths:
       summary: Lists all books
       operationId: listBooks
       tags:
-      - books
+        - books
+      parameters: 
+        - in: query
+          description: search for books with title
+          name: title
+          schema:
+            type: string
       requestBody:
         description: the book to create
       responses:
@@ -107,6 +113,19 @@ paths:
               application/json:
                 schema:
                   $ref: "#/components/schemas/ResponseBook"
+          '201':
+             description: Created
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ResponseBook"
+            '204':
+             description: not changed
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+
           default:
             description: unexpected error
             content:

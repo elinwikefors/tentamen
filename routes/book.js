@@ -15,7 +15,6 @@ get = (req, res, next) => {
     })
 }
 postBook = (req, res, next) => {
-  console.info('hello', req.body)
   req.models.Book.create({
     isbn: req.body.isbn,
     title: req.body.title,
